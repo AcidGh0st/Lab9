@@ -7,10 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -36,6 +33,8 @@ public class BstAvlOperationsController
     private TextArea tourInfoTextArea;
     @javafx.fxml.FXML
     private Button randomizeButton;
+    @FXML
+    private Label lbl_Balanced;
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -63,5 +62,13 @@ public class BstAvlOperationsController
 
     @javafx.fxml.FXML
     public void containsOnAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void radioButtonBST(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void radioButtonAVL(ActionEvent actionEvent) {
     }
 }

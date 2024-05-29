@@ -31,7 +31,7 @@ public class HelloController {
 
     @FXML
     void home(ActionEvent event) {
-        this.messageText.setText("Laboratory 8");
+        this.messageText.setText("Laboratory 9");
         this.bp.setCenter(ap);
     }
 
@@ -41,17 +41,17 @@ public class HelloController {
     }
 
     @FXML
-    public void graphicBTreeOnAction(ActionEvent actionEvent) {
-        loadPage("graphicBTree.fxml");
+    public void graphicBstAvlOnAction(ActionEvent actionEvent) {
+        loadPage("graphicBST-AVL.fxml");
     }
 
     @FXML
-    public void bTreeTourOnAction(ActionEvent actionEvent) {
-        loadPage("BTree_Tour.fxml");
+    public void BstAvlTourOnAction(ActionEvent actionEvent) {
+//        loadPage("graphicBTree.fxml");
     }
 
     @FXML
-    public void bTreeOperationsOnAction(ActionEvent actionEvent) {
-        loadPage("bTreeOperations.fxml");
+    public void BstAvlOperationsOnAction(ActionEvent actionEvent) {
+        loadPage("bst-avlOperations.fxml");
     }
 }
