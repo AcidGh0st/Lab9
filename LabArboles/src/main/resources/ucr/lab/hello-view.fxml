@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bp" prefHeight="694.0" prefWidth="1462.0" style="-fx-background-color: #6e9987;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HelloController">
+<BorderPane fx:id="bp" prefHeight="751.0" prefWidth="1462.0" style="-fx-background-color: #6e9987;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HelloController">
    <center>
-      <AnchorPane fx:id="ap" prefHeight="635.0" prefWidth="535.0">
+      <AnchorPane fx:id="ap" prefHeight="814.0" prefWidth="1171.0">
          <children>
             <Text fx:id="messageText" fill="WHITE" layoutX="482.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laboratory 9">
                <font>

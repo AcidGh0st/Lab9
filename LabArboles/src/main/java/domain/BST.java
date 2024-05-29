@@ -240,6 +240,19 @@ public class BST implements Tree {
         return result;
     }
 
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    private boolean isBalanced(BTreeNode node) {
+        if (node == null) {
+            return true;
+        }
+        int leftHeight = height(node.left);
+        int rightHeight = height(node.right);
+        return Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(node.left) && isBalanced(node.right);
+    }
+
 
     //preOrder: recorre el árbol de la forma: nodo-izq-der
     //inOrder: recorre el árbol de la forma: izq-nodo-der

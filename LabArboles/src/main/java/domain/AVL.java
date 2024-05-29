@@ -287,6 +287,23 @@ public class AVL implements Tree {
         return result;
     }
 
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    private boolean isBalanced(BTreeNode node) {
+        if (node == null) {
+            return true;
+        }
+
+        int balanceFactor = Math.abs(getBalanceFactor(node));
+        if (balanceFactor > 1) {
+            return false;
+        }
+
+        return isBalanced(node.left) && isBalanced(node.right);
+    }
+
 
     //preOrder: recorre el árbol de la forma: nodo-izq-der
     //inOrder: recorre el árbol de la forma: izq-nodo-der
