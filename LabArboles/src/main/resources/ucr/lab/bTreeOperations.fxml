@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="691.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BTreeOperationsController">
+   <center>
+      <Pane fx:id="drawTreePane" prefHeight="200.0" prefWidth="200.0" visible="false" BorderPane.alignment="CENTER">
+         <children>
+            <Canvas fx:id="canvas" height="595.0" width="917.0" />
+            <TextArea fx:id="tourInfoTextArea" prefHeight="598.0" prefWidth="917.0" />
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <Pane prefHeight="91.0" prefWidth="917.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="39.0" prefWidth="917.0">
+               <children>
+                  <Label layoutX="273.0" layoutY="6.0" text="Graphic Binary Tree- Operations">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutY="46.0" prefHeight="61.0" prefWidth="917.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="62.0" prefWidth="917.0">
+                           <children>
+                              <Button fx:id="randomizeButton" mnemonicParsing="false" onAction="#randomizeOnAction" text="Randomize" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="addButton" disable="true" mnemonicParsing="false" onAction="#addOnAction" snapToPixel="false" text="Add">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="nodeHeightButton" disable="true" mnemonicParsing="false" onAction="#nodeHeightOnAction" snapToPixel="false" text="Node Height">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="containsButton" disable="true" mnemonicParsing="false" onAction="#containsOnAction" snapToPixel="false" text="Contains">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="removeButton" disable="true" mnemonicParsing="false" onAction="#removeOnAction" pickOnBounds="false" snapToPixel="false" text="Remove">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="treeHeighButton" disable="true" mnemonicParsing="false" onAction="#treeHeighOnAction" snapToPixel="false" text="Tree Height">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </top>
+   <bottom>
+      <TextArea fx:id="textInfo" prefHeight="33.0" prefWidth="917.0" style="-fx-background-color: #6e9987;" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font></TextArea>
+   </bottom>
+</BorderPane>
