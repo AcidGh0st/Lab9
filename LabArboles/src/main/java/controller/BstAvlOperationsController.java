@@ -245,7 +245,7 @@ public class BstAvlOperationsController
                 drawConnection(gc, x, y, childX, childY);
                 drawNode(gc, node.getRight(), childX, childY, spacing * 0.75); // Ajusta el espacio horizontal
             }
-            gc.setFill(Color.WHITE);
+            gc.setFill(Color.CYAN);
             gc.setStroke(Color.BLACK);
             gc.setLineWidth(2);
             gc.fillOval(x - 20, y - 20, 40, 40); // Reducir el tamaño de los nodos
