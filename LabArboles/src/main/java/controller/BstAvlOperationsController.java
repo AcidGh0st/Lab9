@@ -167,8 +167,13 @@ public class BstAvlOperationsController
                 avl.add(randomValue);
         }
         drawTree();
+        if (isBSTSelected)
+            lbl_Balanced.setText("BST Balanced: " + bst.isBalanced());
+        else
+            lbl_Balanced.setText("AVL Balanced: " + avl.isBalanced());
         textInfo.setText("Árbol randomizado.");
     }
+
 
     @javafx.fxml.FXML
     public void containsOnAction(ActionEvent actionEvent) {
@@ -220,10 +225,8 @@ public class BstAvlOperationsController
         GraphicsContext gC = canvas.getGraphicsContext2D();
         if (isBSTSelected) {
             drawNode(gC, bst.getRoot(), drawTreePane.getWidth() / 2, 50, 150);
-            lbl_Balanced.setText("BST Balanced: " + bst.isBalanced());
         } else {
             drawNode(gC, avl.getRoot(), drawTreePane.getWidth() / 2, 50, 150);
-            lbl_Balanced.setText("AVL Balanced: " + avl.isBalanced());
         }
         drawTreePane.getChildren().add(canvas);
     }
