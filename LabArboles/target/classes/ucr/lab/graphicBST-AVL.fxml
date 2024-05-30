@@ -33,7 +33,7 @@
                   </Label>
                   <Pane layoutY="46.0" prefHeight="61.0" prefWidth="917.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="62.0" prefWidth="917.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="917.0">
                            <children>
                               <Button fx:id="randomizeButton" mnemonicParsing="false" onAction="#randomizeOnAction" text="Randomize">
                                  <HBox.margin>
@@ -60,18 +60,23 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                                  <children>
-                                    <RadioButton mnemonicParsing="false" onAction="#radioButtonBST" selected="true" text="Árbol BST">
+                                    <RadioButton fx:id="radioButtonBST" mnemonicParsing="false" onAction="#radioButtonBST" selected="true" text="Árbol BST">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#radioButtonAVL" text="Árbol AVL">
+                                    <RadioButton fx:id="radioButtonAVL" mnemonicParsing="false" onAction="#radioButtonAVL" text="Árbol AVL">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </RadioButton>
                                  </children>
                               </VBox>
+                              <Label fx:id="lbl_Balanced">
+                                 <font>
+                                    <Font name="Arial Bold" size="13.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </HBox>
                      </children>

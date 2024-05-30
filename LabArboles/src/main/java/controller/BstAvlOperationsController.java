@@ -201,12 +201,14 @@ public class BstAvlOperationsController
 
     @javafx.fxml.FXML
     public void radioButtonBST(ActionEvent actionEvent) {
+        radioButtonAVL.setSelected(false);
         isBSTSelected = true;
         drawTree();
     }
 
     @javafx.fxml.FXML
     public void radioButtonAVL(ActionEvent actionEvent) {
+        radioButtonBST.setSelected(false);
         isBSTSelected = false;
         drawTree();
     }
