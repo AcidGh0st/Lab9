@@ -66,7 +66,7 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="treeHeighButton" disable="true" mnemonicParsing="false" onAction="#treeHeighOnAction" prefHeight="51.0" prefWidth="103.0" snapToPixel="false" text="Tree Height">
+                              <Button fx:id="treeHeighButton" disable="true" mnemonicParsing="false" onAction="#treeHeighOnAction" prefHeight="51.0" prefWidth="126.0" snapToPixel="false" text="Tree Height">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>

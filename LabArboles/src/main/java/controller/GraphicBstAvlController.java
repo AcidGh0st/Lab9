@@ -1,8 +1,6 @@
 package controller;
 
-import domain.BTree;
-import domain.BTreeNode;
-import domain.TreeException;
+import domain.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -34,9 +32,13 @@ public class GraphicBstAvlController
     private RadioButton radioButtonAVL;
     @FXML
     private Label lbl_Balanced;
+    private BST bst;
+    private AVL avl;
 
     @javafx.fxml.FXML
     public void initialize() {
+        bst = new BST();
+        avl = new AVL();
     }
 
     @javafx.fxml.FXML
