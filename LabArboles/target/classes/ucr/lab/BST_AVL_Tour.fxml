@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="526.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BSTAVLTourController">
+   <children>
+      <Pane prefHeight="66.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="142.0" layoutY="33.0" text="Graphic Binary Search" />
+         </children>
+      </Pane>
+      <Pane layoutY="66.0" prefHeight="108.0" prefWidth="600.0">
+         <children>
+            <RadioButton fx:id="ALV_RadioButton" layoutX="186.0" layoutY="77.0" mnemonicParsing="false" text="Árbol AVL" />
+            <Button fx:id="btn_Randomize" layoutX="47.0" layoutY="14.0" mnemonicParsing="false" onAction="#RandomizeOnAction" text="Randomize" />
+            <Button fx:id="btn_PreOrder" layoutX="177.0" layoutY="14.0" mnemonicParsing="false" onAction="#PreOrderOnAction" text="Pre Order" />
+            <Button fx:id="btn_InOrder" layoutX="312.0" layoutY="14.0" mnemonicParsing="false" onAction="#InOrderOnAction" text="In Order" />
+            <Button fx:id="btn_PostOrder" layoutX="439.0" layoutY="14.0" mnemonicParsing="false" onAction="#PostOrderOnAction" text="Post Order" />
+            <RadioButton fx:id="BST_RadioButton" layoutX="86.0" layoutY="77.0" mnemonicParsing="false" text="Árbol BST" />
+         </children>
+      </Pane>
+      <Pane fx:id="AVLTree_Pane" layoutY="200.0" prefHeight="607.0" prefWidth="1099.0" />
+   </children>
+</AnchorPane>
