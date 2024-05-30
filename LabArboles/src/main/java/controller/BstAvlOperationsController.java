@@ -248,8 +248,8 @@ public class BstAvlOperationsController
             gc.setFill(Color.CYAN);
             gc.setStroke(Color.BLACK);
             gc.setLineWidth(2);
-            gc.fillOval(x - 20, y - 20, 40, 40); // Reducir el tamaño de los nodos
-            gc.strokeOval(x - 20, y - 20, 40, 40); // Reducir el tamaño de los nodos
+            gc.fillOval(x - 20, y - 20, 40, 40);
+            gc.strokeOval(x - 20, y - 20, 40, 40);
             gc.setFill(Color.BLACK);
             gc.fillText(node.getData().toString(), x - 5, y + 5);
             gc.fillText(node.path, x - 20, y + 30); // Muestra el path más abajo del nodo
