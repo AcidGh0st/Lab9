@@ -16,7 +16,7 @@ public class BSTTest {
             BST bstAlfabeto = new BST();
             BST bstNombres = new BST();
 
-            // a. Insertar objetos en el árbol
+            // Insertar objetos en los árboles
             // a. Un árbol binario simple con 100 números aleatorios entre 0 y 500
             for (int i = 0; i < 100; i++) {
                 int value = util.Utility.getRandom(500);
@@ -101,8 +101,20 @@ public class BSTTest {
             // i. Volver a comprobar si el árbol bst está balanceado
             System.out.println("\n¿Está el árbol bst equilibrado después de las eliminaciones? " + (bst.isBalanced() ? "Sí" : "No"));
 
+            // j. Mostrar la altura de cada elemento del árbol bst
+            System.out.println("\nAltura de cada elemento del árbol bst:");
+            showHeight(bst.getRoot(), bst);
+
         } catch (TreeException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void showHeight(BTreeNode node, BST bst) throws TreeException {
+        if (node != null) {
+            System.out.println("Elemento: " + node.data + ", Altura: " + bst.height(node.data));
+            showHeight(node.left, bst);
+            showHeight(node.right, bst);
         }
     }
 }
