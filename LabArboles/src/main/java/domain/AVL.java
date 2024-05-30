@@ -3,8 +3,11 @@ package domain;
 public class AVL implements Tree {
     private BTreeNode root; //unica entrada al arbol
 
-    public AVL(){
+    private String sequence;
+
+    public AVL() {
         this.root = null;
+        this.sequence = "";
     }
 
     @Override
@@ -59,41 +62,42 @@ public class AVL implements Tree {
     public void add(Object element) {
         this.root = add(root, element, "root");
     }
-    
-    private BTreeNode add(BTreeNode node, Object element, String sequence){
-        if(node==null){ //si el arbol esta vacio
+
+    private BTreeNode add(BTreeNode node, Object element, String sequence) {
+        if (node == null) { // Si el arbol esta vacio
             node = new BTreeNode(element, "Added as " + sequence);
-        }else{
-            if(util.Utility.compare(element, node.data)<0)
-                node.left = add(node.left, element, sequence + "left");
-            else if(util.Utility.compare(element, node.data)>0)
-                node.right = add(node.right, element, sequence + "right");
+        } else {
+            if (util.Utility.compare(element, node.data) < 0)
+                node.left = add(node.left, element, sequence + "left. ");
+            else if (util.Utility.compare(element, node.data) > 0)
+                node.right = add(node.right, element, sequence + "right. ");
         }
-        //se determina si se requiere rebalanceo 
-        node = reBalance(node, element);
+        // Se determina si se requiere rebalanceo
+        node = reBalance(node, element, sequence);
         return node;
     }
 
-    //Método para actualizar la altura de un nodo
+
+    // Método para actualizar la altura de un nodo
     private void updateHeight(BTreeNode node) {
         if (node != null) {
             node.height = Math.max(height(node.left), height(node.right)) + 1;
         }
     }
 
-    //Método para calcular el factor de balance de un nodo
+    // Método para calcular el factor de balance de un nodo
     private int getBalanceFactor(BTreeNode node) {
         if (node == null) return 0;
         return height(node.left) - height(node.right);
     }
 
-    //Rotación simple a la izquierda
+    // Rotación simple a la izquierda
     private BTreeNode leftRotate(BTreeNode node) {
         BTreeNode newRoot = node.right;
         node.right = newRoot.left;
         newRoot.left = node;
 
-        //Actualiza alturas
+        // Actualiza alturas
         updateHeight(node);
         updateHeight(newRoot);
 
@@ -106,7 +110,7 @@ public class AVL implements Tree {
         node.left = newRoot.right;
         newRoot.right = node;
 
-        //Actualiza alturas
+        //Actualiz alturas
         updateHeight(node);
         updateHeight(newRoot);
 
@@ -114,32 +118,44 @@ public class AVL implements Tree {
     }
 
     //Rebalanceo del nodo después de la inserción/eliminación
-    private BTreeNode reBalance(BTreeNode node, Object element) {
-        updateHeight(node);
-
+    private BTreeNode reBalance(BTreeNode node, Object element, String sequence) {
         int balance = getBalanceFactor(node);
-        if (balance > 1) {
-            //Left  case
-            if (util.Utility.compare(element, node.left.data) < 0) {
-                //Left-Left case
-                return rightRotate(node);
-            } else {
-                //Left-Right case
-                node.left = leftRotate(node.left);
-                return rightRotate(node);
-            }
-        } else if (balance < -1) {
-            //Right case
-            if (util.Utility.compare(element, node.right.data) > 0) {
-                //Right-Right case
-                return leftRotate(node);
-            } else {
-                //Right-Left case
-                node.right = rightRotate(node.right);
-                return leftRotate(node);
-            }
+
+        // Left Left Case
+        if (balance > 1 && util.Utility.compare(element, node.left.data) < 0) {
+            node.path += " Simple Right Rotation ";
+            this.sequence += node.path + "\n";
+            return rightRotate(node);
         }
+
+        // Right Right Case
+        if (balance < -1 && util.Utility.compare(element, node.right.data) > 0) {
+            node.path += " Simple Left Rotation ";
+            this.sequence += node.path + "\n";
+            return leftRotate(node);
+        }
+
+        // Left Right Case
+        if (balance > 1 && util.Utility.compare(element, node.left.data) > 0) {
+            node.path += " Double Left/Right Rotation ";
+            this.sequence += node.path + "\n";
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+
+        // Right Left Case
+        if (balance < -1 && util.Utility.compare(element, node.right.data) < 0) {
+            node.path += " Double Right/Left Rotation ";
+            this.sequence += node.path + "\n";
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+
         return node;
+    }
+
+    public String getSequence() {
+        return sequence;
     }
 
 

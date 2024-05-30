@@ -46,8 +46,7 @@ public class HelloController {
     }
 
     @FXML
-    public void BstAvlTourOnAction(ActionEvent actionEvent) {
-//        loadPage("graphicBTree.fxml");
+    public void BstAvlTourOnAction(ActionEvent actionEvent) {loadPage("BST_AVL_Tour.fxml");
     }
 
     @FXML
