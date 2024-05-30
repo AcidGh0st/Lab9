@@ -217,10 +217,10 @@ public class BstAvlOperationsController
         canvas = new Canvas(drawTreePane.getWidth(), drawTreePane.getHeight());
         GraphicsContext gC = canvas.getGraphicsContext2D();
         if (isBSTSelected) {
-            drawNode(gC, bst.getRoot(), drawTreePane.getWidth() / 2, 50, 150); // Ajusta el espaciado horizontal
+            drawNode(gC, bst.getRoot(), drawTreePane.getWidth() / 2, 50, 150);
             lbl_Balanced.setText("BST Balanced: " + bst.isBalanced());
         } else {
-            drawNode(gC, avl.getRoot(), drawTreePane.getWidth() / 2, 50, 150); // Ajusta el espaciado horizontal
+            drawNode(gC, avl.getRoot(), drawTreePane.getWidth() / 2, 50, 150);
             lbl_Balanced.setText("AVL Balanced: " + avl.isBalanced());
         }
         drawTreePane.getChildren().add(canvas);

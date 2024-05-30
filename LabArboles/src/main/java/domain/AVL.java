@@ -74,55 +74,72 @@ public class AVL implements Tree {
         return node;
     }
 
+    //Método para actualizar la altura de un nodo
+    private void updateHeight(BTreeNode node) {
+        if (node != null) {
+            node.height = Math.max(height(node.left), height(node.right)) + 1;
+        }
+    }
+
+    //Método para calcular el factor de balance de un nodo
+    private int getBalanceFactor(BTreeNode node) {
+        if (node == null) return 0;
+        return height(node.left) - height(node.right);
+    }
+
+    //Rotación simple a la izquierda
+    private BTreeNode leftRotate(BTreeNode node) {
+        BTreeNode newRoot = node.right;
+        node.right = newRoot.left;
+        newRoot.left = node;
+
+        //Actualiza alturas
+        updateHeight(node);
+        updateHeight(newRoot);
+
+        return newRoot;
+    }
+
+    //Rotación simple a la derecha
+    private BTreeNode rightRotate(BTreeNode node) {
+        BTreeNode newRoot = node.left;
+        node.left = newRoot.right;
+        newRoot.right = node;
+
+        //Actualiza alturas
+        updateHeight(node);
+        updateHeight(newRoot);
+
+        return newRoot;
+    }
+
+    //Rebalanceo del nodo después de la inserción/eliminación
     private BTreeNode reBalance(BTreeNode node, Object element) {
+        updateHeight(node);
+
         int balance = getBalanceFactor(node);
-        //Left Left Case
-        if (balance> 1 && util.Utility.compare(element, node.data)<0) {
-            node.path += ". Simple Right Rotation";
-            return rightRotate(node);
-        }
-        //Right Right Case
-        if (balance< -1 && util.Utility.compare(element, node.data)>0){
-            node.path += ". Simple Left Rotation";
-            return leftRotate(node);
-        }
-
-        //Left Right Case
-        if (balance> 1 && util.Utility.compare(element, node.data)>0){
-            node.path += ". Double Left/Right Rotation";
-            node.left = leftRotate(node.left);
-            return rightRotate(node);
-        }
-
-        //Right Left Case
-        if (balance< -1 && util.Utility.compare(element, node.data)<0){
-            node.path += ". Double Right/Left Rotation";
-            node.right = rightRotate(node.right);
-            return leftRotate(node);
+        if (balance > 1) {
+            //Left  case
+            if (util.Utility.compare(element, node.left.data) < 0) {
+                //Left-Left case
+                return rightRotate(node);
+            } else {
+                //Left-Right case
+                node.left = leftRotate(node.left);
+                return rightRotate(node);
+            }
+        } else if (balance < -1) {
+            //Right case
+            if (util.Utility.compare(element, node.right.data) > 0) {
+                //Right-Right case
+                return leftRotate(node);
+            } else {
+                //Right-Left case
+                node.right = rightRotate(node.right);
+                return leftRotate(node);
+            }
         }
         return node;
-    }
-
-    private BTreeNode leftRotate(BTreeNode node) {
-        BTreeNode node1 = node.right;
-        BTreeNode node2 = node1.left;
-        //se realiza la rotacion (perform rotation)
-        node1.left = node;
-        node.right = node2;
-        return node1;
-    }
-    private BTreeNode rightRotate(BTreeNode node) {
-        BTreeNode node1 = node.left;
-        BTreeNode node2 = node1.right;
-        //se realiza la rotacion (perform rotation)
-        node1.right = node;
-        node.left = node2;
-        return node1;
-    }
-
-    private int getBalanceFactor(BTreeNode node) {
-        if (node==null) return 0; 
-        else return height(node.left) - height(node.right); 
     }
 
 
@@ -133,40 +150,70 @@ public class AVL implements Tree {
         root = remove(root,element);
     }
 
-    private BTreeNode remove(BTreeNode node, Object element){
-
-        if (node != null){
-            if (util.Utility.compare(element, node.data)<0) {
-                node.left = remove(node.left, element);
-            }else if (util.Utility.compare(element, node.data)>0) {
-                node.right = remove(node.right, element);
-            }else if (util.Utility.compare(node.data,element)==0) {
-
-                //caso 1: Es un nodo sin hijos
-                if (node.left == null && node.right == null) {
-                    return null;
-                }
-                //caso 2:El nodo solo tiene un hijo
-                else if (node.left == null && node.right != null) {
-//                node.right = newPath(node.right, node.path);
-                    return node.right;
-                } else if (node.left != null && node.right == null) {
-                    //node.left = newPath(node.left, node.path);
-                    return node.left;
-                }
-                //Caso 3: El nodo tiene 2 hijos
-                else if (node.left != null && node.right != null) {
-                    Object value = min(node.right);
-                    node.data = value;
-                    node.right = remove(node.right, value);
-                }
-            }
-            //se determina si se requiere rebalanceo
-            node = reBalance(node, element);
+    private BTreeNode remove(BTreeNode node, Object element) {
+        if (node == null) {
+            return node;
         }
-        return  node;
+
+        if (util.Utility.compare(element, node.data) < 0) {
+            node.left = remove(node.left, element);
+        } else if (util.Utility.compare(element, node.data) > 0) {
+            node.right = remove(node.right, element);
+        } else {
+            if ((node.left == null) || (node.right == null)) {
+                BTreeNode temp = null;
+                if (temp == node.left) {
+                    temp = node.right;
+                } else {
+                    temp = node.left;
+                }
+
+                if (temp == null) {
+                    temp = node;
+                    node = null;
+                } else {
+                    node = temp;
+                }
+            } else {
+                BTreeNode temp = minValueNode(node.right);
+                node.data = temp.data;
+                node.right = remove(node.right, temp.data);
+            }
+        }
+
+        if (node == null) {
+            return node;
+        }
+
+        node.height = Math.max(height(node.left), height(node.right)) + 1;
+
+        int balance = getBalanceFactor(node);
+
+        if (balance > 1 && getBalanceFactor(node.left) >= 0) {
+            return rightRotate(node);
+        }
+        if (balance > 1 && getBalanceFactor(node.left) < 0) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+        if (balance < -1 && getBalanceFactor(node.right) <= 0) {
+            return leftRotate(node);
+        }
+        if (balance < -1 && getBalanceFactor(node.right) > 0) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+
+        return node;
     }
-    
+
+    private BTreeNode minValueNode(BTreeNode node) {
+        BTreeNode current = node;
+        while (current.left != null) {
+            current = current.left;
+        }
+        return current;
+    }
 
     @Override
     public int height(Object element) throws TreeException {
