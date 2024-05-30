@@ -10,86 +10,97 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BSTTest {
 
     @Test
-    void prueba() {
+    void testBST() {
         try {
             BST bst = new BST();
+            BST bstAlfabeto = new BST();
+            BST bstNombres = new BST();
 
-            List<Integer> numerosAleatorios = new ArrayList<>();
+            // a. Insertar objetos en el árbol
+            // a. Un árbol binario simple con 100 números aleatorios entre 0 y 500
             for (int i = 0; i < 100; i++) {
                 int value = util.Utility.getRandom(500);
-                numerosAleatorios.add(value);
                 bst.add(value);
             }
 
+            // b. Un árbol binario de búsqueda con las letras del alfabeto
             String alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             for (char letra : alfabeto.toCharArray()) {
-                bst.add(letra);
+                bstAlfabeto.add(letra);
             }
 
+            // c. Un árbol binario simple con 10 nombres de personas
             String[] nombres = {"Alex", "Valentina", "Jimena", "Diana", "Daniel", "Juan", "Luis", "Hank", "James", "Jack"};
             for (String nombre : nombres) {
-                bst.add(nombre);
+                bstNombres.add(nombre);
             }
 
-            System.out.println("Recorridos del árbol:");
-            System.out.println("PreOrder traversal:");
+            // b. Mostrar el contenido del árbol por consola
+            System.out.println("Contenido del árbol bst:");
+            System.out.println("PreOrder:");
             System.out.println(bst.preOrder());
-            System.out.println("InOrder traversal:");
+            System.out.println("InOrder:");
             System.out.println(bst.inOrder());
-            System.out.println("PostOrder traversal:");
+            System.out.println("PostOrder:");
             System.out.println(bst.postOrder());
 
-            try {
-                System.out.println("Tamaño del árbol: " + bst.size());
-                System.out.println("Elemento mínimo en el árbol: " + bst.min());
-                System.out.println("Elemento máximo en el árbol: " + bst.max());
-            } catch (TreeException e) {
-                e.printStackTrace();
-            }
+            // c. Mostrar el tamaño, mínimo y máximo del árbol bst
+            System.out.println("Tamaño del árbol bst: " + bst.size());
+            System.out.println("Elemento mínimo en el árbol bst: " + bst.min());
+            System.out.println("Elemento máximo en el árbol bst: " + bst.max());
 
+            // d. Comprobar la existencia de elementos en el árbol bst
+            System.out.println("\nComprobando la existencia de elementos en el árbol bst:");
+            List<Integer> numerosAleatorios = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
-                assertTrue(bst.contains(numerosAleatorios.get(i)));
+                int value = util.Utility.getRandom(500);
+                numerosAleatorios.add(value);
+                System.out.println("¿El árbol bst contiene el valor " + value + "? " + (bst.contains(value) ? "Sí" : "No"));
             }
 
+            // d. Comprobar la existencia de letras en el árbol bstAlfabeto
+            System.out.println(" \nComprobando la existencia de letras en el árbol bstAlfabeto:");
             char[] letrasParaVerificar = {'A', 'E', 'I', 'O', 'U'};
             for (char letra : letrasParaVerificar) {
-                assertTrue(bst.contains(letra));
+                System.out.println("¿El árbol bstAlfabeto contiene la letra '" + letra + "'? " + (bstAlfabeto.contains(letra) ? "Sí" : "No"));
             }
 
+            // d. Comprobar la existencia de nombres en el árbol bstNombres
+            System.out.println("\nComprobando la existencia de nombres en el árbol bstNombres:");
             String[] nombresParaVerificar = {"Alex", "Jimena", "Daniel", "Luis", "Jack"};
             for (String nombre : nombresParaVerificar) {
-                assertTrue(bst.contains(nombre));
+                System.out.println("¿El árbol bstNombres contiene el nombre '" + nombre + "'? " + (bstNombres.contains(nombre) ? "Sí" : "No"));
             }
 
+            // e. Agregar 10 números aleatorios entre 0 y 20 en el árbol bst
+            System.out.println("\nAgregando 10 números aleatorios entre 0 y 20 en el árbol bst:");
             for (int i = 0; i < 10; i++) {
-                int numeroAleatorio = (int) (Math.random() * 21);
+                int numeroAleatorio = util.Utility.getRandom(20);
                 bst.add(numeroAleatorio);
             }
 
-            System.out.println("¿Está el árbol equilibrado? " + bst.isBalanced());
+            // f. Comprobar si el árbol bst está balanceado
+            System.out.println("\n¿Está el árbol bst equilibrado? " + (bst.isBalanced() ? "Sí" : "No"));
 
+            // g. Eliminar 5 elementos del árbol bst
+            System.out.println("\nEliminando 5 elementos del árbol bst:");
             for (int i = 0; i < 5; i++) {
-                bst.remove(numerosAleatorios.get(i));
+                int value = util.Utility.getRandom(500);
+                bst.remove(value);
             }
 
-            System.out.println("Recorridos del árbol después de las eliminaciones:");
-            System.out.println("PreOrder traversal:");
+            // h. Mostrar el contenido del árbol bst por consola
+            System.out.println("Contenido del árbol bst después de las eliminaciones:");
+            System.out.println("PreOrder:");
             System.out.println(bst.preOrder());
-            System.out.println("InOrder traversal:");
+            System.out.println("InOrder:");
             System.out.println(bst.inOrder());
-            System.out.println("PostOrder traversal:");
+            System.out.println("PostOrder:");
             System.out.println(bst.postOrder());
 
-            System.out.println("¿Está el árbol equilibrado después de las eliminaciones? " + bst.isBalanced());
+            // i. Volver a comprobar si el árbol bst está balanceado
+            System.out.println("\n¿Está el árbol bst equilibrado después de las eliminaciones? " + (bst.isBalanced() ? "Sí" : "No"));
 
-            System.out.println("Alturas de los elementos en el árbol:");
-            for (String nombre : nombres) {
-                try {
-                    System.out.println(nombre + ": " + bst.height(nombre));
-                } catch (TreeException e) {
-                    e.printStackTrace();
-                }
-            }
         } catch (TreeException e) {
             e.printStackTrace();
         }

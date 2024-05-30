@@ -367,6 +367,46 @@ public class AVL implements Tree {
         return isBalanced(node.left) && isBalanced(node.right);
     }
 
+    public int getRandomValue() throws TreeException {
+        if (isEmpty()) {
+            throw new TreeException("AVL Binary Search Tree is empty");
+        }
+        int treeSize = size();
+        int randomIndex = util.Utility.getRandom(treeSize);
+        return getRandomValue(root, randomIndex, new Counter());
+    }
+
+    private int getRandomValue(BTreeNode node, int targetIndex, Counter counter) {
+        if (node == null) {
+            return -1;
+        }
+        int leftValue = getRandomValue(node.left, targetIndex, counter);
+        if (leftValue != -1) {
+            return leftValue;
+        }
+        counter.increment();
+        if (counter.getCount() - 1 == targetIndex) {
+            return (int) node.data;
+        }
+        return getRandomValue(node.right, targetIndex, counter);
+    }
+
+    private static class Counter {
+        private int count;
+
+        public Counter() {
+            this.count = 0;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void increment() {
+            count++;
+        }
+    }
+
 
     //preOrder: recorre el árbol de la forma: nodo-izq-der
     //inOrder: recorre el árbol de la forma: izq-nodo-der

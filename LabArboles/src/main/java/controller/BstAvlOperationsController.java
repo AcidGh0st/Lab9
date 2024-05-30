@@ -86,67 +86,74 @@ public class BstAvlOperationsController
             }
         }
     }
-
     @javafx.fxml.FXML
     public void removeOnAction(ActionEvent actionEvent) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Eliminar Nodo");
-        dialog.setHeaderText("Ingresar el valor del nodo a eliminar");
-        dialog.setContentText("Valor:");
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            try {
-                int value = Integer.parseInt(result.get());
-                if (isBSTSelected) {
-                    if (bst.contains(value)) {
-                        bst.remove(value);
-                        drawTree();
-                        textInfo.setText("Nodo " + result.get() + " eliminado.");
-                    } else {
-                        textInfo.setText("Nodo " + result.get() + " no existe en el árbol.");
-                    }
+        try {
+            if (isBSTSelected) {
+                if (!bst.isEmpty()) {
+                    Object valueToRemove = bst.getRoot().getData();
+                    bst.remove(valueToRemove);
+                    drawTree();
+                    textInfo.setText("Nodo " + valueToRemove + " eliminado.");
                 } else {
-                    if (avl.contains(value)) {
-                        avl.remove(value);
-                        drawTree();
-                        textInfo.setText("Nodo " + result.get() + " eliminado.");
-                    } else {
-                        textInfo.setText("Nodo " + result.get() + " no existe en el árbol.");
-                    }
+                    textInfo.setText("No hay nodos para eliminar en el árbol BST.");
                 }
-            } catch (NumberFormatException | TreeException e) {
-                textInfo.setText("Error: Por favor, ingrese un valor entero válido.");
+            } else {
+                if (!avl.isEmpty()) {
+                    Object valueToRemove = avl.getRoot().getData();
+                    avl.remove(valueToRemove);
+                    drawTree();
+                    textInfo.setText("Nodo " + valueToRemove + " eliminado.");
+                } else {
+                    textInfo.setText("No hay nodos para eliminar en el árbol AVL.");
+                }
             }
+
+            if (isBSTSelected) {
+                if (bst.isEmpty()) {
+                    textInfo.setText("No hay más nodos para eliminar en el árbol BST.");
+                }
+            } else {
+                if (avl.isEmpty()) {
+                    textInfo.setText("No hay más nodos para eliminar en el árbol AVL.");
+                }
+            }
+        } catch (TreeException e) {
+            textInfo.setText("Error: " + e.getMessage());
         }
     }
+
+
 
 
     @javafx.fxml.FXML
     public void addOnAction(ActionEvent actionEvent) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Agregar Nodo");
-        dialog.setHeaderText("Ingresar el valor del nodo a agregar");
-        dialog.setContentText("Valor:");
+        int value = util.Utility.getRandom(100);
 
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            try {
-                int value = Integer.parseInt(result.get());
-                if (isBSTSelected) {
+        try {
+            if (isBSTSelected) {
+                if (bst.isEmpty() || !bst.contains(value)) {
                     bst.add(value);
                     drawTree();
-                    textInfo.setText("Nodo " + result.get() + " agregado.");
+                    textInfo.setText("Nodo " + value + " agregado.");
                 } else {
+                    textInfo.setText("El nodo " + value + " ya existe en el árbol.");
+                }
+            } else {
+                if (avl.isEmpty() || !avl.contains(value)) {
                     avl.add(value);
                     drawTree();
-                    textInfo.setText("Nodo " + result.get() + " agregado.");
+                    textInfo.setText("Nodo " + value + " agregado.");
+                } else {
+                    textInfo.setText("El nodo " + value + " ya existe en el árbol.");
                 }
-            } catch (NumberFormatException e) {
-                textInfo.setText("Por favor, ingrese un valor entero válido.");
             }
+        } catch (TreeException e) {
+            throw new RuntimeException(e);
         }
     }
+
+
 
     @javafx.fxml.FXML
     public void randomizeOnAction(ActionEvent actionEvent) {
@@ -252,7 +259,6 @@ public class BstAvlOperationsController
             gc.strokeOval(x - 20, y - 20, 40, 40);
             gc.setFill(Color.BLACK);
             gc.fillText(node.getData().toString(), x - 5, y + 5);
-            gc.fillText(node.path, x - 20, y + 30); // Muestra el path más abajo del nodo
         }
     }
 

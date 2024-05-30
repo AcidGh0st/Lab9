@@ -101,38 +101,36 @@ public class BTree implements Tree {
     public void remove(Object element) throws TreeException {
         if(isEmpty())
             throw new TreeException("Binary Tree is empty");
-        root = remove(root,element);
+        root = remove(root, element);
     }
 
-    private BTreeNode remove(BTreeNode node, Object element){
+    private BTreeNode remove(BTreeNode node, Object element) {
+        if (node == null)
+            return null;
 
-        if (node != null){
-            if (util.Utility.compare(node.data,element)==0) {
-
-                //caso 1: Es un nodo sin hijos
-                if (node.left == null && node.right == null) {
-                    return null;
-                }
-                //caso 2:El nodo solo tiene un hijo
-                else if (node.left == null && node.right != null) {
-//                node.right = newPath(node.right, node.path);
-                    return node.right;
-                } else if (node.left != null && node.right == null) {
-                    //node.left = newPath(node.left, node.path);
-                    return node.left;
-                }
-                //Caso 3: El nodo tiene 2 hijos
-                else if (node.left != null && node.right != null) {
-                    Object value = getLeaf(node.right);
-                    node.data = value;
-                    node.right = removeLeaf(node.right, value);
-                }
-            }
+        if (util.Utility.compare(element, node.data) < 0) {
             node.left = remove(node.left, element);
+        } else if (util.Utility.compare(element, node.data) > 0) {
             node.right = remove(node.right, element);
+        } else {
+            // Caso 1: Nodo sin hijos
+            if (node.left == null && node.right == null) {
+                return null;
+            }
+            // Caso 2: Nodo con un hijo
+            else if (node.left == null) {
+                return node.right;
+            } else if (node.right == null) {
+                return node.left;
+            }
+            // Caso 3: Nodo con dos hijos
+            else {
+                Object minValue = min(node.right);
+                node.data = minValue;
+                node.right = remove(node.right, minValue);
+            }
         }
-
-        return  node;
+        return node;
     }
 
 
@@ -278,6 +276,26 @@ public class BTree implements Tree {
 
         }
         return result;
+    }
+
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    private boolean isBalanced(BTreeNode node) {
+        if (node == null) {
+            return true; // Un árbol vacío es balanceado
+        }
+
+        int leftHeight = height(node.left);
+        int rightHeight = height(node.right);
+
+        // Verifica si la diferencia de alturas entre el subárbol izquierdo y derecho es como máximo 1
+        if (Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(node.left) && isBalanced(node.right)) {
+            return true;
+        }
+
+        return false;
     }
 
 

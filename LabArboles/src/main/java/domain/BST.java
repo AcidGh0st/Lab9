@@ -87,38 +87,35 @@ public class BST implements Tree {
         root = remove(root,element);
     }
 
-    private BTreeNode remove(BTreeNode node, Object element){
+    private BTreeNode remove(BTreeNode node, Object element) {
+        if (node == null)
+            return null;
 
-        if (node != null){
-            if (util.Utility.compare(element, node.data)<0) {
-                node.left = remove(node.left, element);
-            }else if (util.Utility.compare(element, node.data)>0) {
-                node.right = remove(node.right, element);
-            }else if (util.Utility.compare(node.data,element)==0) {
-
-                //caso 1: Es un nodo sin hijos
-                if (node.left == null && node.right == null) {
-                    return null;
-                }
-                //caso 2:El nodo solo tiene un hijo
-                else if (node.left == null && node.right != null) {
-//                node.right = newPath(node.right, node.path);
-                    return node.right;
-                } else if (node.left != null && node.right == null) {
-                    //node.left = newPath(node.left, node.path);
-                    return node.left;
-                }
-                //Caso 3: El nodo tiene 2 hijos
-                else if (node.left != null && node.right != null) {
-                    Object value = min(node.right);
-                    node.data = value;
-                    node.right = remove(node.right, value);
-                }
+        if (util.Utility.compare(element, node.data) < 0) {
+            node.left = remove(node.left, element);
+        } else if (util.Utility.compare(element, node.data) > 0) {
+            node.right = remove(node.right, element);
+        } else {
+            // Caso 1: Nodo sin hijos
+            if (node.left == null && node.right == null) {
+                return null;
+            }
+            // Caso 2: Nodo con un hijo
+            else if (node.left == null) {
+                return node.right;
+            } else if (node.right == null) {
+                return node.left;
+            }
+            // Caso 3: Nodo con dos hijos
+            else {
+                Object minValue = min(node.right);
+                node.data = minValue;
+                node.right = remove(node.right, minValue);
             }
         }
-
-        return  node;
+        return node;
     }
+
 
 
     @Override
@@ -251,6 +248,47 @@ public class BST implements Tree {
         int leftHeight = height(node.left);
         int rightHeight = height(node.right);
         return Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(node.left) && isBalanced(node.right);
+    }
+
+
+    public int getRandomValue() throws TreeException {
+        if (isEmpty()) {
+            throw new TreeException("Binary Search Tree is empty");
+        }
+        int treeSize = size();
+        int randomIndex = util.Utility.getRandom(treeSize);
+        return getRandomValue(root, randomIndex, new Counter());
+    }
+
+    private int getRandomValue(BTreeNode node, int targetIndex, Counter counter) {
+        if (node == null) {
+            return -1;
+        }
+        int leftValue = getRandomValue(node.left, targetIndex, counter);
+        if (leftValue != -1) {
+            return leftValue;
+        }
+        counter.increment();
+        if (counter.getCount() - 1 == targetIndex) {
+            return (int) node.data;
+        }
+        return getRandomValue(node.right, targetIndex, counter);
+    }
+
+    private static class Counter {
+        private int count;
+
+        public Counter() {
+            this.count = 0;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void increment() {
+            count++;
+        }
     }
 
 
