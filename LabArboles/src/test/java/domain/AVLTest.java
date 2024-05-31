@@ -9,12 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class AVLTest {
 
     @Test
-            public void testALV() throws TreeException {
+    public void testALV() throws TreeException {
         AVL avl = new AVL();
 
-        Random rand = new Random();
-        for (int i = 0; i < 30; i++) {
-            avl.add(rand.nextInt(100));
+        int addedCount = 0;
+        while (addedCount < 30) {
+            int value = util.Utility.getRandom(100);
+            try {
+                if (!avl.contains(value)) {
+                    avl.add(value);
+                    addedCount++;
+                }
+            } catch (TreeException e) {
+                //Por si el árbol está vacío, entonces añade un valor
+                avl.add(value);
+                addedCount++;
+            }
         }
 
         System.out.println(avl.toString());
@@ -31,7 +41,7 @@ class AVLTest {
         System.out.println(avl.getSequence());
 
         for (int i = 0; i < 5; i++) {
-            int num = rand.nextInt(100);
+            int num = util.Utility.getRandom(100);
             System.out.println("Removing: " + num);
             avl.remove(num);
         }

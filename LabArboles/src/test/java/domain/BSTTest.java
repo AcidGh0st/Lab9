@@ -18,9 +18,19 @@ public class BSTTest {
 
             // Insertar objetos en los árboles
             // a. Un árbol binario simple con 100 números aleatorios entre 0 y 500
-            for (int i = 0; i < 100; i++) {
+            int addedCount = 0;
+            while (addedCount < 100) {
                 int value = util.Utility.getRandom(500);
-                bst.add(value);
+                try {
+                    if (!bst.contains(value)) {
+                        bst.add(value);
+                        addedCount++;
+                    }
+                } catch (TreeException e) {
+                    //Por si el árbol está vacío, entonces añade un valor
+                    bst.add(value);
+                    addedCount++;
+                }
             }
 
             // b. Un árbol binario de búsqueda con las letras del alfabeto
