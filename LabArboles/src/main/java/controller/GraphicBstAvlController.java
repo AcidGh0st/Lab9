@@ -44,6 +44,8 @@ public class GraphicBstAvlController
 
     @javafx.fxml.FXML
     public void radioButtonBST(ActionEvent actionEvent) {
+        lbl_Balanced.setText("");
+        lbl_Balanced.setVisible(false);
         radioButtonAVL.setSelected(false);
         isBSTSelected = true;
         drawTree();
@@ -71,13 +73,18 @@ public class GraphicBstAvlController
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void isBalancedOnAction(ActionEvent actionEvent) {
-        if (isBSTSelected)
+        // Hacer lo que necesites con randomizeButtonSelected
+        if (isBSTSelected) {
+            lbl_Balanced.setVisible(true);
             lbl_Balanced.setText("BST Balanced: " + bst.isBalanced());
-        else
+        } else{
+            lbl_Balanced.setVisible(true);
             lbl_Balanced.setText("AVL Balanced: " + avl.isBalanced());
+        }
     }
+
 
     @javafx.fxml.FXML
     public void randomizeOnAction(ActionEvent actionEvent) {
@@ -95,7 +102,6 @@ public class GraphicBstAvlController
                 avl.add(randomValue);
         }
         drawTree();
-//        textInfo.setText("Árbol randomizado.");
     }
 
     @javafx.fxml.FXML
@@ -127,6 +133,8 @@ public class GraphicBstAvlController
 
     @javafx.fxml.FXML
     public void radioButtonAVL(ActionEvent actionEvent) {
+        lbl_Balanced.setText("");
+        lbl_Balanced.setVisible(false);
         radioButtonBST.setSelected(false);
         isBSTSelected = false;
         drawTree();

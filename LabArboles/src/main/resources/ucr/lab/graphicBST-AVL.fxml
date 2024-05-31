@@ -72,7 +72,7 @@
                                     </RadioButton>
                                  </children>
                               </VBox>
-                              <Label fx:id="lbl_Balanced">
+                              <Label fx:id="lbl_Balanced" visible="false">
                                  <font>
                                     <Font name="Arial Bold" size="13.0" />
                                  </font>
